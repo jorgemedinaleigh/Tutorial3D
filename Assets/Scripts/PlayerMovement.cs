@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     public Rigidbody rb;
 
@@ -22,11 +22,16 @@ public class Player : MonoBehaviour
 
         if(Input.GetKey("d"))
         {
-            rb.AddForce(movement * Time.deltaTime, 0, 0);
+            rb.AddForce(movement * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
         }
         if (Input.GetKey("a"))
         {
-            rb.AddForce(-movement * Time.deltaTime, 0, 0);
+            rb.AddForce(-movement * Time.deltaTime, 0, 0, ForceMode.VelocityChange);
+        }
+
+        if (rb.position.y < -1f)
+        {
+            FindObjectOfType<GameManager>().EndGame();
         }
     }
 }
